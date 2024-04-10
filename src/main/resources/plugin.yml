@@ -1,0 +1,11 @@
+name: hiden
+version: '${project.version}'
+main: dev.luzifer.hiden.Hiden
+api-version: '1.20'
+depend:
+  - TAB
+
+commands:
+  hide:
+  spawn:
+  lobby:
