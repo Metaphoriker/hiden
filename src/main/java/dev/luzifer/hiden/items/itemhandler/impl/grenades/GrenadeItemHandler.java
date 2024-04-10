@@ -1,6 +1,8 @@
-package dev.luzifer.hiden.items.itemhandler;
+package dev.luzifer.hiden.items.itemhandler.impl.grenades;
 
 import dev.luzifer.hiden.game.HideAndSeekGame;
+import dev.luzifer.hiden.items.itemhandler.BaseItemHandler;
+import dev.luzifer.hiden.items.itemhandler.ItemHandlerConfiguration;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

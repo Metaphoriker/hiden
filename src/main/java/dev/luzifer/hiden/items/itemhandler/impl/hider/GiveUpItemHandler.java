@@ -1,4 +1,4 @@
-package dev.luzifer.hiden.items.itemhandler.impl;
+package dev.luzifer.hiden.items.itemhandler.impl.hider;
 
 import dev.luzifer.hiden.game.HideAndSeekGame;
 import dev.luzifer.hiden.items.itemhandler.BaseItemHandler;
