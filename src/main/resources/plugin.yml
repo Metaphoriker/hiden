@@ -1,6 +1,6 @@
 name: hiden
 version: '${project.version}'
-main: dev.luzifer.hiden.Hiden
+main: dev.luzifer.hiden.HidenPlugin
 api-version: '1.20'
 depend:
   - TAB

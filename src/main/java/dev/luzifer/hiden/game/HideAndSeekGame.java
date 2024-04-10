@@ -28,6 +28,7 @@ import me.neznamy.tab.api.TabAPI;
 import me.neznamy.tab.api.TabPlayer;
 import me.neznamy.tab.api.nametag.NameTagManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -36,6 +37,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 
 // TODO: cleanup
 public class HideAndSeekGame {
@@ -96,143 +98,118 @@ public class HideAndSeekGame {
   private static final Map<ItemStack, ItemHandler> itemListener = new HashMap<>();
 
   static {
-    itemDataMap.put(
-        AUFGEBEN_ITEM,
-        new ItemData(
-            "§c§lAufgeben §7(Rechtsklick)",
-            Material.BARRIER,
-            null,
-            List.of("§7§oBei Betätigung wirst du gefunden und scheidest aus.", "§9§oHIDER ITEM")));
-    itemDataMap.put(
-        FLASH_GRENADE_ITEM,
-        new ItemData(
-            "§f§lBlendgranate §7(Rechtsklick)",
-            Material.PAPER,
-            1004,
-            List.of("§7§oWirft eine Blendgranate die alle Spieler im Umkreis erblinden lässt.")));
-    itemDataMap.put(
-        SMOKE_GRENADE_ITEM,
-        new ItemData(
-            "§8§lRauchgranate §7(Rechtsklick)",
-            Material.PAPER,
-            1005,
-            List.of(
-                "§7§oWirft eine Rauchgranate, welche eine stetig wachsende Rauchschwade erzeugt.")));
-    itemDataMap.put(
-        LASER_GRENADE_ITEM,
-        new ItemData(
-            "§c§lLasergranate §7(Rechtsklick)",
-            Material.PAPER,
-            1007,
-            List.of(
-                "§7§oWirft eine Lasergranate, welche alle Hider im Umkreis offenbart.",
-                "§c§oSEEKER ITEM")));
-    itemDataMap.put(
-        PEPPER_SPRAY_ITEM,
-        new ItemData(
-            "§6§lPfefferspray §7(Rechtsklick)",
-            Material.PAPER,
-            1009,
-            List.of(
-                "§7§oSprüht Pfefferspray, welches das anvisierte Ziel verlangsamt und kurzzeitig dessen Sicht einschränkt.")));
-    itemDataMap.put(
-        DECOY_GRENADE_ITEM,
-        new ItemData(
-            "§6§lAttrappe §7(Rechtsklick)",
-            Material.PAPER,
-            1006,
-            List.of("§7§oWirft eine Attrappe, welche Spielerschritte simuliert.")));
-    itemDataMap.put(
-        LIGHT_STICK_ITEM,
-        new ItemData(
-            "§e§lKnicklicht §7(Rechtsklick)",
-            Material.BLAZE_ROD,
-            null,
-            List.of(
-                "§7§oOffenbart dich für 10 Sekunden.",
-                "§7§oDu kannst damit auch andere Spieler offenbaren indem du sie schlägst.")));
-    itemDataMap.put(
-        MAUESSCHEN_MAUESSCHEN_PIEP_EINMAL_ITEM,
-        new ItemData(
-            "§6§lMäuschen, Mäuschen, piep einmal §7(Rechtsklick)",
-            Material.PAPER,
-            1008,
-            List.of("§7§oLässt den nächsten Hider erklingen.", "§c§oSUCHER ITEM")));
-    itemDataMap.put(
-        BOOST_ITEM,
-        new ItemData(
-            "§e§lBoost §7(Rechtsklick)",
-            Material.FEATHER,
-            null,
-            List.of(
-                "§7§oBoosted dich in die Richtung, in die du schaust.",
-                "§7§oTIPP: Springen verleiht dem Effekt mehr Effizienz.",
-                "§c§oSUCHER ITEM")));
-    itemDataMap.put(
-        KEVLAR_VEST_ITEM,
-        new ItemData(
-            "§7§lKevlarweste §7(Anziehen)",
-            Material.LEATHER_CHESTPLATE,
-            null,
-            List.of("§7§oBeschützt dich vor einem Treffer.", "§9§oHIDER ITEM")));
-    itemDataMap.put(
-        LINKAGE_ITEM,
-        new ItemData(
-            "§6§lVerknüpfung §7(Rechtsklick)",
-            Material.PAPER,
-            1010,
-            List.of(
-                "§7§oWenn zwei Spieler dieses Item haben, können sie sich gegenseitig damit schlagen und somit miteinander verlinken.",
-                "§7§oSollte das Item von einem Spieler benutzt werden, wird dieser Spieler zum anderen teleportiert und beide Items aufgebraucht.")));
-    itemDataMap.put(
-        RANDOM_TELEPORT_ITEM,
-        new ItemData(
-            "§6§lZufällige Teleportation §7(Rechtsklick)",
-            Material.PAPER,
-            1011,
-            List.of("§7§oTeleportiert dich an eine zufällige Position im Umkreis.")));
-    itemDataMap.put(
-        SPEED_AND_JUMP_HEIGHT_ITEM,
-        new ItemData(
-            "§6§lGeschwindigkeit und Sprunghöhe §7(Rechtsklick)",
-            Material.FEATHER,
-            null,
-            List.of("§7§oErhöht deine Geschwindigkeit und Sprunghöhe für 5 Sekunden.")));
-    itemDataMap.put(
-        SACRIFICIAL_LAMB_ITEM,
-        new ItemData(
-            "§6§lOpferlamm §7(Rechtsklick)",
-            Material.PAPER,
-            1012,
-            List.of("§7§oWechselt die Position mit einem anderen Hider.")));
-    itemDataMap.put(
-        DISAPPEAR_FROM_THE_RADAR_ITEM,
-        new ItemData(
-            "§6§lVom Radar verschwinden §7(Rechtsklick)",
-            Material.PAPER,
-            1013,
-            List.of("§7§oVerschwinde für 20 Sekunden vom Radar der Hider.", "§c§oSUCHER ITEM")));
-    itemDataMap.put(
-        INVISIBILITY_ITEM,
-        new ItemData(
-            "§6§lUnsichtbarkeit §7(Rechtsklick)",
-            Material.PAPER,
-            1014,
-            List.of("§7§oMacht dich für 10 Sekunden unsichtbar.")));
+    ItemMeta itemMeta = AUFGEBEN_ITEM.getItemMeta();
+    itemMeta.setDisplayName("§c§lAufgeben §7(Rechtsklick)");
+    itemMeta.setLore(
+        List.of("§7§oBei Betätigung wirst du gefunden und scheidest aus.", "§9§oHIDER ITEM"));
+    AUFGEBEN_ITEM.setItemMeta(itemMeta);
 
-    for (Map.Entry<ItemStack, ItemData> entry : itemDataMap.entrySet()) {
-      setItemMeta(entry.getKey(), entry.getValue());
-    }
-  }
+    ItemMeta flashGrenadeMeta = FLASH_GRENADE_ITEM.getItemMeta();
+    flashGrenadeMeta.setDisplayName("§f§lBlendgranate §7(Rechtsklick)");
+    flashGrenadeMeta.setLore(
+        List.of("§7§oWirft eine Blendgranate die alle Spieler im Umkreis erblinden lässt."));
+    flashGrenadeMeta.setCustomModelData(1004);
+    FLASH_GRENADE_ITEM.setItemMeta(flashGrenadeMeta);
 
-  private static void setItemMeta(ItemStack item, ItemData itemData) {
-    ItemMeta itemMeta = item.getItemMeta();
-    itemMeta.setDisplayName(itemData.name());
-    itemMeta.setLore(itemData.lore());
-    if (itemData.customModelData() != null) {
-      itemMeta.setCustomModelData(itemData.customModelData());
-    }
-    item.setItemMeta(itemMeta);
+    ItemMeta smokeGrenadeMeta = SMOKE_GRENADE_ITEM.getItemMeta();
+    smokeGrenadeMeta.setDisplayName("§8§lRauchgranate §7(Rechtsklick)");
+    smokeGrenadeMeta.setLore(
+        List.of("§7§oWirft eine Rauchgranate, welche eine stetig wachsende Rauchschwade erzeugt."));
+    smokeGrenadeMeta.setCustomModelData(1005);
+    SMOKE_GRENADE_ITEM.setItemMeta(smokeGrenadeMeta);
+
+    ItemMeta laserGrenadeMeta = LASER_GRENADE_ITEM.getItemMeta();
+    laserGrenadeMeta.setDisplayName("§c§lLasergranate §7(Rechtsklick)");
+    laserGrenadeMeta.setLore(
+        List.of(
+            "§7§oWirft eine Lasergranate, welche alle Hider im Umkreis offenbart.",
+            "§c§oSEEKER ITEM"));
+    laserGrenadeMeta.setCustomModelData(1007);
+    LASER_GRENADE_ITEM.setItemMeta(laserGrenadeMeta);
+
+    ItemMeta pepperSprayMeta = PEPPER_SPRAY_ITEM.getItemMeta();
+    pepperSprayMeta.setDisplayName("§6§lPfefferspray §7(Rechtsklick)");
+    pepperSprayMeta.setLore(
+        List.of(
+            "§7§oSprüht Pfefferspray, welches das anvisierte Ziel verlangsamt und kurzzeitig dessen Sicht einschränkt."));
+    pepperSprayMeta.setCustomModelData(1009);
+    PEPPER_SPRAY_ITEM.setItemMeta(pepperSprayMeta);
+
+    ItemMeta decoyGrenadeMeta = DECOY_GRENADE_ITEM.getItemMeta();
+    decoyGrenadeMeta.setDisplayName("§6§lAttrappe §7(Rechtsklick)");
+    decoyGrenadeMeta.setLore(List.of("§7§oWirft eine Attrappe, welche Spielerschritte simuliert."));
+    decoyGrenadeMeta.setCustomModelData(1006);
+    DECOY_GRENADE_ITEM.setItemMeta(decoyGrenadeMeta);
+
+    ItemMeta lightStickMeta = LIGHT_STICK_ITEM.getItemMeta();
+    lightStickMeta.setDisplayName("§e§lKnicklicht §7(Rechtsklick)");
+    lightStickMeta.setLore(
+        List.of(
+            "§7§oOffenbart dich für 10 Sekunden.",
+            "§7§oDu kannst damit auch andere Spieler offenbaren indem du sie schlägst."));
+    LIGHT_STICK_ITEM.setItemMeta(lightStickMeta);
+
+    ItemMeta maueschenMeta = MAUESSCHEN_MAUESSCHEN_PIEP_EINMAL_ITEM.getItemMeta();
+    maueschenMeta.setDisplayName("§6§lMäuschen, Mäuschen, piep einmal §7(Rechtsklick)");
+    maueschenMeta.setLore(List.of("§7§oLässt den nächsten Hider erklingen.", "§c§oSUCHER ITEM"));
+    maueschenMeta.setCustomModelData(1008);
+    MAUESSCHEN_MAUESSCHEN_PIEP_EINMAL_ITEM.setItemMeta(maueschenMeta);
+
+    ItemMeta boostMeta = BOOST_ITEM.getItemMeta();
+    boostMeta.setDisplayName("§e§lBoost §7(Rechtsklick)");
+    boostMeta.setLore(
+        List.of(
+            "§7§oBoosted dich in die Richtung, in die du schaust.",
+            "§7§oTIPP: Springen verleiht dem Effekt mehr Effizienz.",
+            "§c§oSUCHER ITEM"));
+    BOOST_ITEM.setItemMeta(boostMeta);
+
+    LeatherArmorMeta kevlarVestMeta = (LeatherArmorMeta) KEVLAR_VEST_ITEM.getItemMeta();
+    kevlarVestMeta.setDisplayName("§7§lKevlarweste §7(Anziehen)");
+    kevlarVestMeta.setLore(List.of("§7§oBeschützt dich vor einem Treffer.", "§9§oHIDER ITEM"));
+    kevlarVestMeta.setColor(Color.BLACK);
+    KEVLAR_VEST_ITEM.setItemMeta(kevlarVestMeta);
+
+    ItemMeta linkageMeta = LINKAGE_ITEM.getItemMeta();
+    linkageMeta.setDisplayName("§6§lVerknüpfung §7(Rechtsklick)");
+    linkageMeta.setLore(
+        List.of(
+            "§7§oWenn zwei Spieler dieses Item haben, können sie sich gegenseitig damit schlagen und somit miteinander verlinken.",
+            "§7§oSollte das Item von einem Spieler benutzt werden, wird dieser Spieler zum anderen teleportiert und beide Items aufgebraucht."));
+    linkageMeta.setCustomModelData(1010);
+    LINKAGE_ITEM.setItemMeta(linkageMeta);
+
+    ItemMeta randomTeleportMeta = RANDOM_TELEPORT_ITEM.getItemMeta();
+    randomTeleportMeta.setDisplayName("§6§lZufällige Teleportation §7(Rechtsklick)");
+    randomTeleportMeta.setLore(
+        List.of("§7§oTeleportiert dich an eine zufällige Position im Umkreis."));
+    randomTeleportMeta.setCustomModelData(1011);
+    RANDOM_TELEPORT_ITEM.setItemMeta(randomTeleportMeta);
+
+    ItemMeta speedAndJumpHeightMeta = SPEED_AND_JUMP_HEIGHT_ITEM.getItemMeta();
+    speedAndJumpHeightMeta.setDisplayName("§6§lGeschwindigkeit und Sprunghöhe §7(Rechtsklick)");
+    speedAndJumpHeightMeta.setLore(
+        List.of("§7§oErhöht deine Geschwindigkeit und Sprunghöhe für 5 Sekunden."));
+    SPEED_AND_JUMP_HEIGHT_ITEM.setItemMeta(speedAndJumpHeightMeta);
+
+    ItemMeta sacrificalLambMeta = SACRIFICIAL_LAMB_ITEM.getItemMeta();
+    sacrificalLambMeta.setDisplayName("§6§lOpferlamm §7(Rechtsklick)");
+    sacrificalLambMeta.setLore(List.of("§7§oWechselt die Position mit einem anderen Hider."));
+    sacrificalLambMeta.setCustomModelData(1012);
+    SACRIFICIAL_LAMB_ITEM.setItemMeta(sacrificalLambMeta);
+
+    ItemMeta disappearFromTheRadarMeta = DISAPPEAR_FROM_THE_RADAR_ITEM.getItemMeta();
+    disappearFromTheRadarMeta.setDisplayName("§6§lVom Radar verschwinden §7(Rechtsklick)");
+    disappearFromTheRadarMeta.setLore(
+        List.of("§7§oVerschwinde für 20 Sekunden vom Radar der Hider.", "§c§oSUCHER ITEM"));
+    disappearFromTheRadarMeta.setCustomModelData(1013);
+    DISAPPEAR_FROM_THE_RADAR_ITEM.setItemMeta(disappearFromTheRadarMeta);
+
+    ItemMeta invisibilityMeta = INVISIBILITY_ITEM.getItemMeta();
+    invisibilityMeta.setDisplayName("§6§lUnsichtbarkeit §7(Rechtsklick)");
+    invisibilityMeta.setLore(List.of("§7§oMacht dich für 10 Sekunden unsichtbar."));
+    invisibilityMeta.setCustomModelData(1014);
+    INVISIBILITY_ITEM.setItemMeta(invisibilityMeta);
   }
 
   private void registerItemHandler() {
