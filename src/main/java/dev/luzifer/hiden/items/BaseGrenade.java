@@ -13,26 +13,27 @@ public abstract class BaseGrenade implements Grenade {
   private final Item item;
   private final int ticksUntilActivation;
   private final int ticksOfActivation;
+
+  protected int ticks;
   protected final double radius;
   protected final PlayerTracker playerTracker;
 
-  protected int ticks;
   private boolean done;
 
   public BaseGrenade(
-      Item representer,
+      Item item,
       PlayerTracker playerTracker,
       int ticksUntilActivation,
       int ticksOfActivation,
       double radius) {
-    this.item = representer;
+    this.item = item;
     this.playerTracker = playerTracker;
     this.ticksUntilActivation = ticksUntilActivation;
     this.ticksOfActivation = ticksOfActivation;
     this.radius = radius;
   }
 
-  public void run() {
+  public void start() {
     new BukkitRunnable() {
       @Override
       public void run() {
@@ -59,29 +60,27 @@ public abstract class BaseGrenade implements Grenade {
     ticks++;
   }
 
-  public boolean isDone() {
-    return done;
-  }
-
   public Location getLocation() {
     return item.getLocation();
   }
 
   protected void showRadiusInACircleOutline() {
-    Particle.DustOptions dustOptions = new Particle.DustOptions(Color.RED, 1);
     int numParticles = 50;
 
     for (int i = 0; i < numParticles; i++) {
       double angle = 2 * Math.PI * i / numParticles;
-
       double x = radius * Math.cos(angle);
       double z = radius * Math.sin(angle);
-
-      getLocation()
-          .getWorld()
-          .spawnParticle(
-              Particle.REDSTONE, getLocation().clone().add(x, 0, z), 1, 0, 0, 0, 0, dustOptions);
+      spawnParticleAtLocation(x, 0, z);
     }
+  }
+
+  private void spawnParticleAtLocation(double x, double y, double z) {
+    Particle.DustOptions dustOptions = new Particle.DustOptions(Color.RED, 1);
+    getLocation()
+        .getWorld()
+        .spawnParticle(
+            Particle.REDSTONE, getLocation().clone().add(x, y, z), 1, 0, 0, 0, 0, dustOptions);
   }
 
   public abstract void untilActivation();

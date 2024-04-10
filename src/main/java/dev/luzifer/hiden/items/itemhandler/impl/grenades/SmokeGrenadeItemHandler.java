@@ -17,6 +17,6 @@ public class SmokeGrenadeItemHandler extends GrenadeItemHandler {
     Item item = throwItem(player, HideAndSeekGame.SMOKE_GRENADE_ITEM);
 
     SmokeGrenade smokeGrenade = new SmokeGrenade(item, getPlayerTracker());
-    smokeGrenade.run();
+    smokeGrenade.start();
   }
 }
