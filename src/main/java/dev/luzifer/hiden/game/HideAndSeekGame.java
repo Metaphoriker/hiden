@@ -248,7 +248,10 @@ public class HideAndSeekGame {
   }
 
   public void handleItem(Player player, ItemStack itemStack) {
-    ItemHandler itemHandler = itemListener.get(itemStack);
+    ItemStack cloned = itemStack.clone();
+    cloned.setAmount(1);
+
+    ItemHandler itemHandler = itemListener.get(cloned);
     if (itemHandler == null) return;
     itemHandler.handleItem(player, itemStack);
   }
