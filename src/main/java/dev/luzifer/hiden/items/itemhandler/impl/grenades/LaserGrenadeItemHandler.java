@@ -16,7 +16,7 @@ public class LaserGrenadeItemHandler extends GrenadeItemHandler {
   protected void handleItemUsage(Player player, ItemStack itemStack) {
     Item item = throwItem(player, HideAndSeekGame.LASER_GRENADE_ITEM);
 
-    LaserGrenade laserGrenade = new LaserGrenade(item, getPlayerTracker());
+    LaserGrenade laserGrenade = new LaserGrenade(item, player, getPlayerTracker());
     laserGrenade.start();
   }
 }

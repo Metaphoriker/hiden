@@ -16,7 +16,7 @@ public class DecoyGrenadeItemHandler extends GrenadeItemHandler {
   protected void handleItemUsage(Player player, ItemStack itemStack) {
     Item item = throwItem(player, HideAndSeekGame.DECOY_GRENADE_ITEM);
 
-    DecoyGrenade decoyGrenade = new DecoyGrenade(item, getPlayerTracker());
+    DecoyGrenade decoyGrenade = new DecoyGrenade(item, player, getPlayerTracker());
     decoyGrenade.start();
   }
 }

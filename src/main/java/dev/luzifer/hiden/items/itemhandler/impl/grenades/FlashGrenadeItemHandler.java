@@ -16,7 +16,7 @@ public class FlashGrenadeItemHandler extends GrenadeItemHandler {
   protected void handleItemUsage(Player player, ItemStack itemStack) {
     Item item = throwItem(player, HideAndSeekGame.FLASH_GRENADE_ITEM);
 
-    FlashGrenade flashGrenade = new FlashGrenade(item, getPlayerTracker());
+    FlashGrenade flashGrenade = new FlashGrenade(item, player, getPlayerTracker());
     flashGrenade.start();
   }
 }
