@@ -60,6 +60,7 @@ public class HideAndSeekGame {
   public static final ItemStack SACRIFICIAL_LAMB_ITEM = new ItemStack(Material.PAPER);
   public static final ItemStack DISAPPEAR_FROM_THE_RADAR_ITEM = new ItemStack(Material.PAPER);
   public static final ItemStack INVISIBILITY_ITEM = new ItemStack(Material.PAPER);
+  public static final ItemStack NITRO_GAUNTLET_ITEM = new ItemStack(Material.PAPER);
 
   public static final ItemStack[] DROPPABLE_ITEMS = {
     FLASH_GRENADE_ITEM,
@@ -72,7 +73,8 @@ public class HideAndSeekGame {
     RANDOM_TELEPORT_ITEM,
     SPEED_AND_JUMP_HEIGHT_ITEM,
     SACRIFICIAL_LAMB_ITEM,
-    INVISIBILITY_ITEM
+    INVISIBILITY_ITEM,
+    NITRO_GAUNTLET_ITEM
   };
 
   public static final ItemStack[] ALL_ITEMS = {
@@ -91,10 +93,10 @@ public class HideAndSeekGame {
     SPEED_AND_JUMP_HEIGHT_ITEM,
     SACRIFICIAL_LAMB_ITEM,
     DISAPPEAR_FROM_THE_RADAR_ITEM,
-    INVISIBILITY_ITEM
+    INVISIBILITY_ITEM,
+    NITRO_GAUNTLET_ITEM
   };
 
-  private static final Map<ItemStack, ItemData> itemDataMap = new HashMap<>();
   private static final Map<ItemStack, ItemHandler> itemListener = new HashMap<>();
 
   static {
@@ -210,6 +212,14 @@ public class HideAndSeekGame {
     invisibilityMeta.setLore(List.of("§7§oMacht dich für 10 Sekunden unsichtbar."));
     invisibilityMeta.setCustomModelData(1014);
     INVISIBILITY_ITEM.setItemMeta(invisibilityMeta);
+
+    ItemMeta nitroGauntletMeta = NITRO_GAUNTLET_ITEM.getItemMeta();
+    nitroGauntletMeta.setDisplayName("§6§lNitro-Handschuh §7(Linksklick/Rechtsklick)");
+    nitroGauntletMeta.setLore(
+        List.of(
+            "§7§oKatapultiert dich mit Rechtsklick nach oben. Nutze Linksklick um dich nach vorne zu katapultieren."));
+    nitroGauntletMeta.setCustomModelData(1015);
+    NITRO_GAUNTLET_ITEM.setItemMeta(nitroGauntletMeta);
   }
 
   private void registerItemHandler() {
@@ -230,9 +240,6 @@ public class HideAndSeekGame {
     itemListener.put(DISAPPEAR_FROM_THE_RADAR_ITEM, new DisappearItemHandler(this));
     itemListener.put(INVISIBILITY_ITEM, new InvisibilityItemHandler(this));
   }
-
-  private record ItemData(
-      String name, Material material, Integer customModelData, List<String> lore) {}
 
   @Getter private final PlayerTracker playerTracker = new PlayerTracker();
   @Getter private final LinkageManager linkageManager = new LinkageManager();
