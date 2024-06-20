@@ -4,11 +4,12 @@ import dev.luzifer.hiden.game.PlayerTracker;
 import java.util.concurrent.ThreadLocalRandom;
 import org.bukkit.Sound;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 
 public class DecoyGrenade extends BaseGrenade {
 
-  public DecoyGrenade(Item representer, PlayerTracker playerTracker) {
-    super(representer, playerTracker, 20 * 5, 20, 30);
+  public DecoyGrenade(Item representer, Player thrower, PlayerTracker playerTracker) {
+    super(representer, thrower, playerTracker, 20 * 5, 20, 30);
   }
 
   @Override

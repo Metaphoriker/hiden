@@ -13,8 +13,8 @@ public class FlashGrenade extends BaseGrenade {
   private static final int BLINDNESS_DURATION = 20 * 3;
   private boolean exploded;
 
-  public FlashGrenade(Item item, PlayerTracker playerTracker) {
-    super(item, playerTracker, 20 * 2, 20 * 3, 15);
+  public FlashGrenade(Item item, Player thrower, PlayerTracker playerTracker) {
+    super(item, thrower, playerTracker, 20 * 2, 20 * 3, 15);
   }
 
   @Override

@@ -17,8 +17,8 @@ public class LaserGrenade extends BaseGrenade {
   private static final int NUM_BEAMS = 4;
   private static final Particle.DustOptions DUST_OPTIONS = new Particle.DustOptions(Color.RED, 1);
 
-  public LaserGrenade(Item item, PlayerTracker playerTracker) {
-    super(item, playerTracker, 20 * 2, 20 * 2, 20);
+  public LaserGrenade(Item item, Player thrower, PlayerTracker playerTracker) {
+    super(item, thrower, playerTracker, 20 * 2, 20 * 2, 20);
   }
 
   @Override

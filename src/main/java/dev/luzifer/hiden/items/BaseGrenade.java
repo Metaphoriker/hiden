@@ -6,6 +6,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class BaseGrenade implements Grenade {
@@ -16,17 +17,20 @@ public abstract class BaseGrenade implements Grenade {
 
   protected int ticks;
   protected final double radius;
+  protected final Player thrower;
   protected final PlayerTracker playerTracker;
 
   private boolean done;
 
   public BaseGrenade(
       Item item,
+      Player thrower,
       PlayerTracker playerTracker,
       int ticksUntilActivation,
       int ticksOfActivation,
       double radius) {
     this.item = item;
+    this.thrower = thrower;
     this.playerTracker = playerTracker;
     this.ticksUntilActivation = ticksUntilActivation;
     this.ticksOfActivation = ticksOfActivation;
