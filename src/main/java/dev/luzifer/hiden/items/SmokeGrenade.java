@@ -2,17 +2,24 @@ package dev.luzifer.hiden.items;
 
 import dev.luzifer.hiden.game.PlayerTracker;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class SmokeGrenade extends BaseGrenade {
 
+  private static final int TICKS_UNTIL_ACTIVATION = 20 * 2;
+  private static final int TICKS_OF_ACTIVATION = 20 * 10;
   private static final double PARTICLE_OFFSET_RANGE = 0.5;
   private static final double PARTICLE_DENSITY = 0.7;
 
   public SmokeGrenade(Item item, PlayerTracker playerTracker) {
-    super(item, playerTracker, 20 * 2, 20 * 10, 7);
+    super(item, playerTracker, TICKS_UNTIL_ACTIVATION, TICKS_OF_ACTIVATION, 7);
   }
 
   @Override
@@ -25,11 +32,21 @@ public class SmokeGrenade extends BaseGrenade {
     if (ticks % 10 == 0) {
       playImitationSound();
       sendSmokeParticlesToEveryone();
+      makePlayersInRangeInvisible();
     }
   }
 
   @Override
   public void onDone() {}
+
+  private void makePlayersInRangeInvisible() {
+    int remainingTime = TICKS_OF_ACTIVATION - TICKS_UNTIL_ACTIVATION - ticks;
+    for (Player player : Bukkit.getOnlinePlayers()) {
+      if (player.getLocation().distance(getLocation()) <= radius) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, remainingTime, 0));
+      }
+    }
+  }
 
   private void playActivationSound() {
     getLocation().getWorld().playSound(getLocation(), Sound.BLOCK_LEVER_CLICK, 1, 2);
