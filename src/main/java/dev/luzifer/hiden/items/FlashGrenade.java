@@ -59,7 +59,16 @@ public class FlashGrenade extends BaseGrenade {
     getLocation().getWorld().getNearbyEntities(getLocation(), radius, radius, radius).stream()
         .filter(Player.class::isInstance)
         .map(Player.class::cast)
+        .filter(this::isTurnedWithBackToGrenade)
         .forEach(player -> applyBlindnessEffectToPlayer(player, amplifier));
+  }
+
+  private boolean isTurnedWithBackToGrenade(Player player) {
+    return player
+            .getLocation()
+            .getDirection()
+            .dot(getLocation().toVector().subtract(player.getLocation().toVector()))
+        > 0;
   }
 
   private void applyBlindnessEffectToPlayer(Player player, int amplifier) {
